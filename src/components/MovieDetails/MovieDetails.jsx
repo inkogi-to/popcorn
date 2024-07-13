@@ -50,7 +50,7 @@ function MovieDetails({ selectedId, closeMovie, addWatch, watched }) {
       try {
         setIsLoading(true);
         const res = await fetch(
-          `http://www.omdbapi.com/?i=${selectedId}&apikey=ec2de630`
+          `https://www.omdbapi.com/?i=${selectedId}&apikey=ec2de630`
         );
         const data = await res.json();
         setMovie(data);
