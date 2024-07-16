@@ -2,11 +2,13 @@ import { average } from "../../App";
 function WatchedSummary({ watched }) {
   const avgImdbRating = average(watched?.map((movie) => movie.rating));
 
-  const avgUserRating = average(
-    watched.map((movie) => movie.userRating)
-  ).toFixed(2);
+  const avgUserRating = average(watched?.map((movie) => movie.userRating));
 
-  const avgRuntime = average(watched.map((movie) => movie.runtime)).toFixed(2);
+  const avgRuntime = average(
+    watched?.map((movie) => {
+      return movie.runtime === "N/A" ? 0 : movie.runtime;
+    })
+  );
   const totalRuntime = Math.round(avgRuntime * 100) / 100;
 
   return (
@@ -19,15 +21,15 @@ function WatchedSummary({ watched }) {
         </p>
         <p>
           <span>⭐️</span>
-          <span>{avgImdbRating}</span>
+          <span>{avgImdbRating.toFixed(1)}</span>
         </p>
         <p>
           <span>🌟</span>
-          <span>{avgUserRating}</span>
+          <span>{avgUserRating.toFixed(1)}</span>
         </p>
         <p>
           <span>⏳</span>
-          <span>{totalRuntime} min</span>
+          <span>{totalRuntime.toFixed(1)} min</span>
         </p>
       </div>
     </div>

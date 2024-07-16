@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import StarRating from "../StarRating/StarRating";
 import Loader from "../Loader/Loader";
+import useKey from "../../hooks/useKey";
 function MovieDetails({ selectedId, closeMovie, addWatch, watched }) {
   const [movie, setMovie] = useState({});
   const [isLoading, setIsLoading] = useState(false);
@@ -34,16 +35,7 @@ function MovieDetails({ selectedId, closeMovie, addWatch, watched }) {
     addWatch(newWatchedMovie);
     closeMovie();
   }
-  useEffect(() => {
-    function callback(e) {
-      if (e.code === "Space") {
-        closeMovie();
-        console.log("Closing");
-      }
-    }
-    document.addEventListener("keydown", callback);
-    return () => document.removeEventListener("keydown", callback);
-  }, [closeMovie]);
+  useKey("Space", closeMovie);
 
   useEffect(() => {
     async function MovieDetails() {
